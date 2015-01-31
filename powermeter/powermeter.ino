@@ -155,28 +155,27 @@ void setup()
   setupRegister();
 }
 
+char  buf[64];
+unsigned short voltage;   // Bus Voltage (mV)
+unsigned short current;   // Current (mA)
+unsigned short power;     // Power (uW)
+unsigned long time; // time (ms)
+
 void loop()
 {
-  char  buf[64];
-  long  voltage;   // Bus Voltage (mV)
-  short current;   // Current (mA)
-  long  power;     // Power (uW)
+  voltage  = (unsigned short)readRegister(INA226_REG_BUS_VOLTAGE);    // LSB=1.25mV
+  current  = (unsigned short)readRegister(INA226_REG_CURRENT);
+  power    = (unsigned short)readRegister(INA226_REG_POWER);                  // LSB=25mW
+  time     = millis();
   
-  voltage  = (long)((short)readRegister(INA226_REG_BUS_VOLTAGE)) * 1250L;    // LSB=1.25mV
-  current  = (short)readRegister(INA226_REG_CURRENT);
-  power    = (long)readRegister(INA226_REG_POWER) * 25000L;                  // LSB=25mW
-  
-  //Serial.println();
   snprintf(buf, NELEMS(buf)
-    , "V:%5ldmV,I:%5dmA,P:%5ldmW"
-    , (voltage + (1000/2)) / 1000
+    , "T%lxV%xA%xP%x"
+    , time
+    , voltage
     , current
-    , (power + (1000/2)) / 1000
+    , power
     );
-    
-  Serial.println(buf);
-
-  //dumpRegisters();
+  Serial.print(buf);
   
   delay(5);
 }
