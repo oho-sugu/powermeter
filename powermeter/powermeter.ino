@@ -163,9 +163,9 @@ unsigned long time; // time (ms)
 
 void loop()
 {
-  voltage  = (unsigned short)readRegister(INA226_REG_BUS_VOLTAGE);    // LSB=1.25mV
+  voltage  = (unsigned short)readRegister(INA226_REG_BUS_VOLTAGE);
   current  = (unsigned short)readRegister(INA226_REG_CURRENT);
-  power    = (unsigned short)readRegister(INA226_REG_POWER);                  // LSB=25mW
+  power    = (unsigned short)readRegister(INA226_REG_POWER);
   time     = millis();
   
   snprintf(buf, NELEMS(buf)
