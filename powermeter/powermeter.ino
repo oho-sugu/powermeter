@@ -5,6 +5,12 @@
   2031.09.03 fix power miscalculation bug
   2013.03.16 1st release
 */
+/*
+2015/04/25
+Original Program : http://ore-kb.net/archives/150 by tomozh@gmail.com
+Suguru Oho <oho.sugu@gmail.com> modifyed for measurement ofpower consumption.
+*/
+
 
 #include <Wire.h>
 
@@ -169,7 +175,7 @@ void loop()
   time     = millis();
   
   snprintf(buf, NELEMS(buf)
-    , "T%lxV%xA%xP%x"
+    , "T%lxV%xI%xP%x\n"
     , time
     , voltage
     , current
